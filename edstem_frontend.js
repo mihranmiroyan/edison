@@ -32,7 +32,7 @@ const getIDFromComment = (comment, isPublic = false) => {
 };
 
 const EDISON_ENDPOINT = "EDISON ENDPOINT";
-const AUTH_TOKEN = "YOUR EDSTEM AUTH TOKEN";
+const AUTH_TOKEN = "EDISON AUTH TOKEN";
 const COURSE = "YOUR COURSE";
 
 const sendEdisonRequest = async (url, body) => {
