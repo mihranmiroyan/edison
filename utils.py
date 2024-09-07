@@ -58,6 +58,22 @@ def question_ocr(xml: str) -> str:
     return "\n".join(extracted_text)
 
 
+def process_question(question_text: str):
+    """
+    Process a question by removing consent blocks and returning the cleaned text.
+
+    Args:
+        question_text (str): The question text to process.
+
+    Returns:
+        str: The cleaned question text with Edison-related blocks removed.
+    """
+    pattern = r'={20,}\s*If you would like to allow the TA to use Edison.*?\[[^]]*]\s*Please write your question above the dashed line\. Thank you!'
+    question_text = re.sub(pattern, '', question_text, flags=re.DOTALL)
+    question_text = re.sub(r'^\s*edison', '', question_text, flags=re.IGNORECASE)
+    return question_text.strip()
+
+
 def ocr_process_input(thread_title: str, conversation_history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
     Process input data by extracting context from images and formatting it into structured conversation turns.
@@ -72,7 +88,7 @@ def ocr_process_input(thread_title: str, conversation_history: List[Dict[str, An
     processed_conversation = [
         {
             'role': 'Student' if turn['user_role'].lower() == 'student' else 'TA',
-            'text': turn['text'],
+            'text': process_question(turn['text']) if turn['user_role'].lower() == 'student' else turn['text'],
             'image_context': question_ocr(turn['document'])
         }
         for turn in conversation_history
