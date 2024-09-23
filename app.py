@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
-load_dotenv('keys.env')
+load_dotenv('./keys.env')
 
 def load_course_config(course: str) -> None:
     load_dotenv(f'configs/{course}.env', override=True)
