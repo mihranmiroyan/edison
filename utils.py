@@ -439,6 +439,7 @@ def get_edstem_token(course: str) -> str:
     """
     course_tokens = {
         'ds100': 'DS100_EDSTEM_KEY',
+        'ds100-sp25': 'DS100_EDSTEM_KEY',
         'ds8': 'DS8_EDSTEM_KEY',
         'cs61a': 'CS61A_EDSTEM_KEY'
     }
